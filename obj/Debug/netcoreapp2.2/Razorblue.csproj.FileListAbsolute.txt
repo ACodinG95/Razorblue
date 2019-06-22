@@ -1,0 +1,11 @@
+C:\Users\Anthony\Razorblue\bin\Debug\netcoreapp2.2\Razorblue.deps.json
+C:\Users\Anthony\Razorblue\bin\Debug\netcoreapp2.2\Razorblue.runtimeconfig.json
+C:\Users\Anthony\Razorblue\bin\Debug\netcoreapp2.2\Razorblue.runtimeconfig.dev.json
+C:\Users\Anthony\Razorblue\bin\Debug\netcoreapp2.2\Razorblue.dll
+C:\Users\Anthony\Razorblue\bin\Debug\netcoreapp2.2\Razorblue.pdb
+C:\Users\Anthony\Razorblue\obj\Debug\netcoreapp2.2\Razorblue.csprojAssemblyReference.cache
+C:\Users\Anthony\Razorblue\obj\Debug\netcoreapp2.2\Razorblue.csproj.CoreCompileInputs.cache
+C:\Users\Anthony\Razorblue\obj\Debug\netcoreapp2.2\Razorblue.AssemblyInfoInputs.cache
+C:\Users\Anthony\Razorblue\obj\Debug\netcoreapp2.2\Razorblue.AssemblyInfo.cs
+C:\Users\Anthony\Razorblue\obj\Debug\netcoreapp2.2\Razorblue.dll
+C:\Users\Anthony\Razorblue\obj\Debug\netcoreapp2.2\Razorblue.pdb
