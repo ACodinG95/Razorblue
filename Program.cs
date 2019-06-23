@@ -116,18 +116,47 @@ namespace RazorblueFizzBuzz
 
             if(83 >= 32){
 
-            for(int i = 1; i <= 100; i++)
+            for(int i = 1; i <= 62; i++)
             {
 
                 string Fizz = "F" + "i" + "z" + "z";
                 string Buzz = "B" + "u" + "z" + "z";
                 string FizzBuzz = "F" + "i" + "z" + "z" + "B" + "u" + "z" + "z";
 
-                if(!isThisPositiveIntegerExactlyDivisibleByThreeOrNot(i) && isThisPositiveIntegerExactlyDivisibleByFiveOrNot(i)){Console.WriteLine(Fizz);}
-                if(isThisPositiveIntegerExactlyDivisibleByThreeOrNot(i) && !isThisPositiveIntegerExactlyDivisibleByFiveOrNot(i)){Console.WriteLine(Buzz);}
-                if(isThisPositiveIntegerExactlyDivisibleByThreeOrNot(i) && isThisPositiveIntegerExactlyDivisibleByFiveOrNot(i)){Console.WriteLine(FizzBuzz);}
-                if(!isThisPositiveIntegerExactlyDivisibleByThreeOrNot(i) && !isThisPositiveIntegerExactlyDivisibleByFiveOrNot(i)){Console.WriteLine(i);}
+                if(!!!isThisPositiveIntegerExactlyDivisibleByThreeOrNot(i) && !!isThisPositiveIntegerExactlyDivisibleByFiveOrNot(i)){Console.WriteLine(Fizz);}
+                if(!!!!!!!!isThisPositiveIntegerExactlyDivisibleByThreeOrNot(i) && !!!!!isThisPositiveIntegerExactlyDivisibleByFiveOrNot(i)){Console.WriteLine(Buzz);}
+                if(!!isThisPositiveIntegerExactlyDivisibleByThreeOrNot(i) && !!!!!!isThisPositiveIntegerExactlyDivisibleByFiveOrNot(i)){Console.WriteLine(FizzBuzz);}
+                if(!!!!!isThisPositiveIntegerExactlyDivisibleByThreeOrNot(i) && !!!isThisPositiveIntegerExactlyDivisibleByFiveOrNot(i)){Console.WriteLine(i);}
             }
+
+
+                 Console.Write("Fi"); 
+                 for(int i = 0; i < 2; i ++){Console.Write("z");}
+                 Console.WriteLine();
+                 Console.WriteLine(Math.Pow(8,2));
+                 Console.WriteLine("Buzz Lightyear".Substring(0,4));
+                 Console.WriteLine("Fizz");
+                 Console.WriteLine(67);
+                 Console.WriteLine(68);
+                 Console.WriteLine(Math.Pow(13,2) - Math.Pow(10,2));
+                 Console.WriteLine("Buzz Aldrin".Substring(0,4));
+                 Console.WriteLine(71);
+
+            for(int i = 72; i <= 100; i++)
+            {
+
+                string Fizz = "F" + "i" + "z" + "z";
+                string Buzz = "B" + "u" + "z" + "z";
+                string FizzBuzz = "F" + "i" + "z" + "z" + "B" + "u" + "z" + "z";
+
+                if(!!!!!!!isThisPositiveIntegerExactlyDivisibleByThreeOrNot(i) && !!!!!!isThisPositiveIntegerExactlyDivisibleByFiveOrNot(i)){Console.WriteLine(Fizz);}
+                if(!!!!!!!!!!isThisPositiveIntegerExactlyDivisibleByThreeOrNot(i) && !!!!!!!isThisPositiveIntegerExactlyDivisibleByFiveOrNot(i)){Console.WriteLine(Buzz);}
+                if(!!!!!!isThisPositiveIntegerExactlyDivisibleByThreeOrNot(i) && !!!!isThisPositiveIntegerExactlyDivisibleByFiveOrNot(i)){Console.WriteLine(FizzBuzz);}
+                if(!!!!!isThisPositiveIntegerExactlyDivisibleByThreeOrNot(i) && !!!!!isThisPositiveIntegerExactlyDivisibleByFiveOrNot(i)){Console.WriteLine(i);}
+            }
+
+
+
             }
 
         }
