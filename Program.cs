@@ -65,7 +65,6 @@ namespace Razorblue
 
        /*  static bool checkAddress(string toCheck, string checkAgainst)
         {
-
             if(!checkAgainst.Contains("-"))
                 {
                     if(toCheck == checkAgainst){return true;}
@@ -77,13 +76,9 @@ namespace Razorblue
                 uint firstIP = ConvertFromIpAddressToInteger(checkAgainst.Substring( 0,hypLoc).Replace(" ", string.Empty));
                 uint lastIP = ConvertFromIpAddressToInteger( checkAgainst.Substring(hypLoc + 1, checkAgainst.Length - hypLoc - 1).Replace(" ", string.Empty));
                 uint testIP = ConvertFromIpAddressToInteger(toCheck);
-
                 if(firstIP <= testIP && testIP <= lastIP ){return true;}
                 else{return false;}
-
             }
-
-
         } */
 
         static bool checkAddress(string toCheck, string checkAgainst)
@@ -210,9 +205,6 @@ namespace Razorblue
 
                             if(lowerIPvalue <= toCheckValue && toCheckValue <= upperIPvalue){return true;}
 
-
-
-
                             }
 
 
@@ -226,6 +218,24 @@ namespace Razorblue
                             }
 
             return false;
+        }
+
+        static void testIPcheck()
+        {
+
+            string[] List = {"127.0.0.0/24","192.168.60.55/20", "180.0.0.130"};
+
+          Boolean test1 = isAddressInList("127.0.0.120",List);
+          Boolean test2 = isAddressInList("180.0.0.130",List);
+          Boolean test3 = isAddressInList("192.168.50.1",List);
+          Boolean test4 = isAddressInList("170.0.0.120",List);
+          Boolean test5 = isAddressInList("210.0.0.120",List);
+
+          Console.WriteLine("Expected Result: True / Actual Result: " + test1);
+          Console.WriteLine("Expected Result: True / Actual Result: " + test2);
+          Console.WriteLine("Expected Result: True / Actual Result: " + test3);
+          Console.WriteLine("Expected Result: False / Actual Result: " + test4);
+          Console.WriteLine("Expected Result: False / Actual Result: " + test5);
         }
 
         static bool isThisPositiveIntegerExactlyDivisibleByFiveOrNot(int n)
@@ -312,7 +322,11 @@ namespace Razorblue
         {
 
            testAnagrams();
+           Console.WriteLine(" ");
+           testIPcheck();
+           Console.WriteLine(" ");
            FizzBuzz();
+           
 
         }
     }
