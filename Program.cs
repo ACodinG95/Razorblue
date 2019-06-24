@@ -98,43 +98,134 @@ namespace Razorblue
 
                 string[] checkAgainstParts = checkAgainst.Split("/");
 
-                int suffix = Convert.ToInt32(checkAgainstParts[1]);
+                            Byte[] checkAgainstBytes = IPAddress.Parse(checkAgainstParts[0]).GetAddressBytes();
+                            Byte[] lowerBound = {0,0,0,0};
+                            Byte[] upperBound = {0,0,0,0};
+
+                            int suffix = Convert.ToInt32(checkAgainstParts[1]);
+
+                            int octet = 0;
+
+                            if(suffix >= 1 && suffix <= 8){octet = 1;}
+                            if(suffix >= 9 && suffix <= 16){octet = 2;}
+                            if(suffix >= 17 && suffix <= 24){octet = 3;}
+                            if(suffix >= 25 && suffix <= 32){octet = 4;}
+
+                            switch (octet)
+                            {
+                                case 1:
+                                    lowerBound[1] = 0;
+                                    upperBound[1] = 255;
+                                    lowerBound[2] = 0;
+                                    upperBound[2] = 255;
+                                    lowerBound[3] = 0;
+                                    upperBound[3] = 255;
+
+                                    string addressBinary1 = Convert.ToString(checkAgainstBytes[0], 2).PadLeft(8, '0');
+                                    string octetBinary1 = new string('1',8 - 8 + suffix).PadRight(8,'0');
+                            
+                                    int byteNumber1 = 0;
+                                    for(int i = 0; i < 8;i++){
+                                        if(addressBinary1[i] == '1' && octetBinary1[i] == '1'){byteNumber1 += Convert.ToInt32(Math.Pow(2,7-i));}
+                                    }
+                                    lowerBound[0] = Convert.ToByte(byteNumber1);
+                                    byteNumber1 += Convert.ToInt32( Math.Pow(2,(8 - suffix))) - 1;
+                                    upperBound[0] = Convert.ToByte(byteNumber1);
+                                    break;
+                                case 2:
+                                    lowerBound[0] = checkAgainstBytes[0];
+                                    upperBound[0] = checkAgainstBytes[0];
+                                    lowerBound[2] = 0;
+                                    upperBound[2] = 255;
+                                    lowerBound[3] = 0;
+                                    upperBound[3] = 255;
+
+                                    string addressBinary2 = Convert.ToString(checkAgainstBytes[1], 2).PadLeft(8, '0');
+                                    string octetBinary2 = new string('1',8 - 16 + suffix).PadRight(8,'0');
+                            
+                                    int byteNumber2 = 0;
+                                    for(int i = 0; i < 8;i++){
+                                        if(addressBinary2[i] == '1' && octetBinary2[i] == '1'){byteNumber2 += Convert.ToInt32(Math.Pow(2,7-i));}
+                                    }
+                                    lowerBound[1] = Convert.ToByte(byteNumber2);
+                                    byteNumber2 += Convert.ToInt32( Math.Pow(2,(16 - suffix))) - 1;
+                                    upperBound[1] = Convert.ToByte(byteNumber2);
+                            
+                                    break;
+
+                                case 3:
+                                    lowerBound[0] = checkAgainstBytes[0];
+                                    upperBound[0] = checkAgainstBytes[0];
+                                    lowerBound[1] = checkAgainstBytes[1];
+                                    upperBound[1] = checkAgainstBytes[1];
+                                    lowerBound[3] = 0;
+                                    upperBound[3] = 255;
+
+                                    string addressBinary3 = Convert.ToString(checkAgainstBytes[2], 2).PadLeft(8, '0');
+                                    string octetBinary3 = new string('1',8 - 24 + suffix).PadRight(8,'0');
+                            
+                                    int byteNumber3 = 0;
+                                    for(int i = 0; i < 8;i++){
+                                        if(addressBinary3[i] == '1' && octetBinary3[i] == '1'){byteNumber3 += Convert.ToInt32(Math.Pow(2,7-i));}
+                                    }
+                                    lowerBound[2] = Convert.ToByte(byteNumber3);
+                                    byteNumber3 += Convert.ToInt32( Math.Pow(2,(24 - suffix))) - 1;
+                                    upperBound[2] = Convert.ToByte(byteNumber3);
+
+
+                                    break;
+                                case 4:
+                                    lowerBound[0] = checkAgainstBytes[0];
+                                    upperBound[0] = checkAgainstBytes[0];
+                                    lowerBound[1] = checkAgainstBytes[1];
+                                    upperBound[1] = checkAgainstBytes[1];
+                                    lowerBound[2] = checkAgainstBytes[2];
+                                    upperBound[2] = checkAgainstBytes[2];
+
+                                    string addressBinary4 = Convert.ToString(checkAgainstBytes[3], 2).PadLeft(8, '0');
+                                    string octetBinary4 = new string('1',8 - 32 + suffix).PadRight(8,'0');
+                            
+                                    int byteNumber4 = 0;
+                                    for(int i = 0; i < 8;i++){
+                                        if(addressBinary4[i] == '1' && octetBinary4[i] == '1'){byteNumber4 += Convert.ToInt32(Math.Pow(2,7-i));}
+                                    }
+                                    lowerBound[3] = Convert.ToByte(byteNumber4);
+                                    byteNumber4 += Convert.ToInt32( Math.Pow(2,(32 - suffix))) - 1;
+                                    upperBound[3] = Convert.ToByte(byteNumber4);
+                                    break;
+                                default:
+                                    Console.WriteLine("Error");
+                                    break;
+                            }
+
+                            IPAddress lowerIP = new IPAddress(lowerBound);
+                            IPAddress upperIP = new IPAddress(upperBound);
+
+                            string lowerIPstring = lowerIP.ToString();
+                            string upperIPstring = upperIP.ToString();
+                            
+                            uint lowerIPvalue = ConvertFromIpAddressToInteger(lowerIPstring);
+                            uint upperIPvalue = ConvertFromIpAddressToInteger(upperIPstring);
+                            uint toCheckValue = ConvertFromIpAddressToInteger(toCheck);
+
+                            if(lowerIPvalue <= toCheckValue && toCheckValue <= upperIPvalue){return true;}
 
 
 
-                /*uint range = Convert.ToUInt32( Math.Pow(2,int.Parse(checkAgainstParts[1])));
 
-                
+                            }
 
 
-                uint lowerBound = ConvertFromIpAddressToInteger(checkAgainstParts[0]);
-                uint upperBound = lowerBound + range - 1;
-                uint checkNumber = ConvertFromIpAddressToInteger(toCheck);
-
-                if(lowerBound <= checkNumber && checkNumber <= upperBound){return true;}*/
-            }
-
+                            return false;
+                        }
+                        static bool isAddressInList(string address, string[] addressList)
+                        {
+                            for(int i = 0; i < addressList.Length; i++)
+                            {
+                                if(checkAddress(address,addressList[i])){return true;}
+                            }
 
             return false;
-        }
-        static bool isAddressInList(string address, string[] addressList)
-        {
-            for(int i = 0; i < addressList.Length; i++)
-            {
-                if(checkAddress(address,addressList[i])){return true;}
-            }
-
-            return false;
-        }
-
-        static void testIPcheck()
-        {
-
-            string[] exampleList = {"127.0.0.0/24",
-                                    "172.16.0.0"
-                                    
-                                    };
-
         }
 
         static bool isThisPositiveIntegerExactlyDivisibleByFiveOrNot(int n)
@@ -220,122 +311,8 @@ namespace Razorblue
         static void Main(string[] args)
         {
 
-            //testAnagrams();
-            //FizzBuzz();
-
-            string checkAgainst = "192.168.60.55/12";
-            string toCheck = "127.0.0.140";
-
-            string[] checkAgainstParts = checkAgainst.Split("/");
-
-            Byte[] checkAgainstBytes = IPAddress.Parse(checkAgainstParts[0]).GetAddressBytes();
-            Byte[] lowerBound = {0,0,0,0};
-            Byte[] upperBound = {0,0,0,0};
-
-            int suffix = Convert.ToInt32(checkAgainstParts[1]);
-
-            int octet = 0;
-
-            if(suffix >= 1 && suffix <= 8){octet = 1;}
-            if(suffix >= 9 && suffix <= 16){octet = 2;}
-            if(suffix >= 17 && suffix <= 24){octet = 3;}
-            if(suffix >= 25 && suffix <= 32){octet = 4;}
-
-            switch (octet)
-            {
-                case 1:
-                    lowerBound[1] = 0;
-                    upperBound[1] = 255;
-                    lowerBound[2] = 0;
-                    upperBound[2] = 255;
-                    lowerBound[3] = 0;
-                    upperBound[3] = 255;
-
-                    string addressBinary1 = Convert.ToString(checkAgainstBytes[0], 2).PadLeft(8, '0');
-                    string octetBinary1 = new string('1',8 - 8 + suffix).PadRight(8,'0');
-             
-                    int byteNumber1 = 0;
-                    for(int i = 0; i < 8;i++){
-                        if(addressBinary1[i] == '1' && octetBinary1[i] == '1'){byteNumber1 += Convert.ToInt32(Math.Pow(2,7-i));}
-                    }
-                    lowerBound[0] = Convert.ToByte(byteNumber1);
-                    byteNumber1 += Convert.ToInt32( Math.Pow(2,(8 - suffix))) - 1;
-                    upperBound[0] = Convert.ToByte(byteNumber1);
-                    break;
-                case 2:
-                    lowerBound[0] = checkAgainstBytes[0];
-                    upperBound[0] = checkAgainstBytes[0];
-                    lowerBound[2] = 0;
-                    upperBound[2] = 255;
-                    lowerBound[3] = 0;
-                    upperBound[3] = 255;
-
-                    string addressBinary2 = Convert.ToString(checkAgainstBytes[1], 2).PadLeft(8, '0');
-                    string octetBinary2 = new string('1',8 - 16 + suffix).PadRight(8,'0');
-             
-                    int byteNumber2 = 0;
-                    for(int i = 0; i < 8;i++){
-                        if(addressBinary2[i] == '1' && octetBinary2[i] == '1'){byteNumber2 += Convert.ToInt32(Math.Pow(2,7-i));}
-                    }
-                    lowerBound[1] = Convert.ToByte(byteNumber2);
-                    byteNumber2 += Convert.ToInt32( Math.Pow(2,(16 - suffix))) - 1;
-                    upperBound[1] = Convert.ToByte(byteNumber2);
-             
-                    break;
-
-                case 3:
-                    lowerBound[0] = checkAgainstBytes[0];
-                    upperBound[0] = checkAgainstBytes[0];
-                    lowerBound[1] = checkAgainstBytes[1];
-                    upperBound[1] = checkAgainstBytes[1];
-                    lowerBound[3] = 0;
-                    upperBound[3] = 255;
-
-                    string addressBinary3 = Convert.ToString(checkAgainstBytes[2], 2).PadLeft(8, '0');
-                    string octetBinary3 = new string('1',8 - 24 + suffix).PadRight(8,'0');
-             
-                    int byteNumber3 = 0;
-                    for(int i = 0; i < 8;i++){
-                        if(addressBinary3[i] == '1' && octetBinary3[i] == '1'){byteNumber3 += Convert.ToInt32(Math.Pow(2,7-i));}
-                    }
-                    lowerBound[2] = Convert.ToByte(byteNumber3);
-                    byteNumber3 += Convert.ToInt32( Math.Pow(2,(24 - suffix))) - 1;
-                    upperBound[2] = Convert.ToByte(byteNumber3);
-
-
-                    break;
-                case 4:
-                    lowerBound[0] = checkAgainstBytes[0];
-                    upperBound[0] = checkAgainstBytes[0];
-                    lowerBound[1] = checkAgainstBytes[1];
-                    upperBound[1] = checkAgainstBytes[1];
-                    lowerBound[2] = checkAgainstBytes[2];
-                    upperBound[2] = checkAgainstBytes[2];
-
-                    string addressBinary4 = Convert.ToString(checkAgainstBytes[3], 2).PadLeft(8, '0');
-                    string octetBinary4 = new string('1',8 - 32 + suffix).PadRight(8,'0');
-             
-                    int byteNumber4 = 0;
-                    for(int i = 0; i < 8;i++){
-                        if(addressBinary4[i] == '1' && octetBinary4[i] == '1'){byteNumber4 += Convert.ToInt32(Math.Pow(2,7-i));}
-                    }
-                    lowerBound[3] = Convert.ToByte(byteNumber4);
-                    byteNumber4 += Convert.ToInt32( Math.Pow(2,(32 - suffix))) - 1;
-                    upperBound[3] = Convert.ToByte(byteNumber4);
-                    break;
-                default:
-                    Console.WriteLine("Error");
-                    break;
-            }
-
-
-
-        foreach(Byte j in lowerBound){Console.WriteLine(j);}
-        foreach(Byte j in upperBound){Console.WriteLine(j);}
-
-
-
-
+           testAnagrams();
+           FizzBuzz();
 
         }
     }
